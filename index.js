@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fb = require('./firebase/firebase');
 
 const app = express();
 const port = 5000;
@@ -17,7 +18,15 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, err => {
+app.post('/signup', (req, res) => {
+  fb.auth()
+    .createUserWithEmailAndPassword(req.body.email, req.body.password1)
+    .then((userCredentials) => {
+      console.log(userCredentials);
+    });
+});
+
+app.listen(port, (err) => {
   if (err) throw err;
   console.log('Server running on port ' + port);
 });

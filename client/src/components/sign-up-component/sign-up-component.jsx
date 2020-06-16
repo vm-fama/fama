@@ -19,7 +19,16 @@ export default class SignUp extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    fetch('http://localhost:5000/signup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state),
+    }).then((res) => {
+      console.log('back', res);
+    });
   };
 
   render() {
