@@ -23,6 +23,10 @@ app.post('/signup', (req, res) => {
     .createUserWithEmailAndPassword(req.body.email, req.body.password1)
     .then((userCredentials) => {
       console.log(userCredentials);
+      return res.status(201).json({ message: 'User successfully created.' });
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.code });
     });
 });
 
