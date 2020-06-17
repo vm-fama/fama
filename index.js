@@ -19,12 +19,19 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.post('/signup', (req, res) => {
-  fb.getUsers(req.body).then((userDoc) => {
-    console.log(userDoc.exists);
+  fb.getUser(req.body).then((userDoc) => {
+    if (userDoc.exists) {
+      // send message that user with that email already exists
+    } else {
+      fb.signUp(req.body).then((userToken) => {
+        fb.addNewUser({
+          token: userToken,
+          createdAt: new Date().toISOString(),
+          ...req.body,
+        });
+      });
+    }
   });
-  // fb.signUp(req.body).then((result) => {
-  //   console.log(result);
-  // });
 });
 
 app.listen(port, (err) => {

@@ -15,7 +15,19 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 const usersDb = firebase.firestore();
 
-const getUsers = ({ email }) => {
+const addNewUser = (userDataObj) => {
+  const {
+    userId,
+    createdAt,
+    firstName,
+    lastName,
+    email,
+    password1,
+  } = userDataObj;
+  return usersDb.doc(`/users/${email}`).set({ createdAt, firstName, lastName });
+};
+
+const getUser = ({ email }) => {
   return usersDb
     .doc(`/users/${email}`)
     .get()
@@ -28,12 +40,15 @@ const signUp = ({ email, password1 }) => {
   return auth
     .createUserWithEmailAndPassword(email, password1)
     .then((userCredentials) => {
-      // refactor to return the uid or get token? Not decided yet
-      return { userCredentials };
+      return userCredentials.user.getIdToken();
+      // return userCredentials.user.uid;
+    })
+    .then((userToken) => {
+      return { userToken };
     })
     .catch((err) => {
       return err;
     });
 };
 
-module.exports = { signUp, getUsers };
+module.exports = { signUp, getUser, addNewUser };
