@@ -13,6 +13,16 @@ const config = {
 
 firebase.initializeApp(config);
 const auth = firebase.auth();
+const usersDb = firebase.firestore();
+
+const getUsers = ({ email }) => {
+  return usersDb
+    .doc(`/users/${email}`)
+    .get()
+    .then((docSnapshot) => {
+      return docSnapshot;
+    });
+};
 
 const signUp = ({ email, password1 }) => {
   return auth
@@ -26,4 +36,4 @@ const signUp = ({ email, password1 }) => {
     });
 };
 
-module.exports = { signUp };
+module.exports = { signUp, getUsers };

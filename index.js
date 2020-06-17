@@ -19,9 +19,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.post('/signup', (req, res) => {
-  fb.signUp(req.body).then((result) => {
-    console.log(result);
+  fb.getUsers(req.body).then((userDoc) => {
+    console.log(userDoc.exists);
   });
+  // fb.signUp(req.body).then((result) => {
+  //   console.log(result);
+  // });
 });
 
 app.listen(port, (err) => {
