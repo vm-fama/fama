@@ -12,5 +12,18 @@ const config = {
 };
 
 firebase.initializeApp(config);
+const auth = firebase.auth();
 
-module.exports = firebase;
+const signUp = ({ email, password1 }) => {
+  return auth
+    .createUserWithEmailAndPassword(email, password1)
+    .then((userCredentials) => {
+      // refactor to return the uid or get token? Not decided yet
+      return { userCredentials };
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+module.exports = { signUp };

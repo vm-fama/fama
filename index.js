@@ -19,15 +19,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.post('/signup', (req, res) => {
-  fb.auth()
-    .createUserWithEmailAndPassword(req.body.email, req.body.password1)
-    .then((userCredentials) => {
-      console.log(userCredentials);
-      return res.status(201).json({ message: 'User successfully created.' });
-    })
-    .catch((err) => {
-      return res.status(500).json({ error: err.code });
-    });
+  fb.signUp(req.body).then((result) => {
+    console.log(result);
+  });
 });
 
 app.listen(port, (err) => {
