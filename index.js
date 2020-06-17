@@ -28,6 +28,8 @@ app.post('/signup', (req, res) => {
           token: userToken,
           createdAt: new Date().toISOString(),
           ...req.body,
+        }).then(() => {
+          res.status(201).json({ added: 'User added to db' });
         });
       });
     }

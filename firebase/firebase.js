@@ -16,14 +16,8 @@ const auth = firebase.auth();
 const usersDb = firebase.firestore();
 
 const addNewUser = (userDataObj) => {
-  const {
-    userId,
-    createdAt,
-    firstName,
-    lastName,
-    email,
-    password1,
-  } = userDataObj;
+  const { createdAt, firstName, lastName, email } = userDataObj;
+
   return usersDb.doc(`/users/${email}`).set({ createdAt, firstName, lastName });
 };
 
@@ -41,7 +35,6 @@ const signUp = ({ email, password1 }) => {
     .createUserWithEmailAndPassword(email, password1)
     .then((userCredentials) => {
       return userCredentials.user.getIdToken();
-      // return userCredentials.user.uid;
     })
     .then((userToken) => {
       return { userToken };
