@@ -27,7 +27,7 @@ export default class SignUp extends React.Component {
       },
       body: JSON.stringify(this.state),
     }).then((res) => {
-      console.log('back', res);
+      console.log('back', res.code);
     });
   };
 

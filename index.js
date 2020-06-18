@@ -25,7 +25,6 @@ app.post('/signup', (req, res) => {
     } else {
       fb.signUp(req.body).then((userToken) => {
         fb.addNewUser({
-          token: userToken,
           createdAt: new Date().toISOString(),
           ...req.body,
         }).then(() => {

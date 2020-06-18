@@ -1,4 +1,9 @@
 const firebase = require('firebase');
+const admin = require('firebase-admin');
+
+let serviceAccount = require('');
+
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
 const config = {
   apiKey: 'AIzaSyBPKoBke1EQn1qjbGpuyDFipalreJnRQdE',
@@ -12,14 +17,9 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
 const auth = firebase.auth();
-const usersDb = firebase.firestore();
-
-const addNewUser = (userDataObj) => {
-  const { createdAt, firstName, lastName, email } = userDataObj;
-
-  return usersDb.doc(`/users/${email}`).set({ createdAt, firstName, lastName });
-};
+const usersDb = admin.firestore();
 
 const getUser = ({ email }) => {
   return usersDb
@@ -42,6 +42,12 @@ const signUp = ({ email, password1 }) => {
     .catch((err) => {
       return err;
     });
+};
+
+const addNewUser = (userDataObj) => {
+  const { createdAt, firstName, lastName, email } = userDataObj;
+
+  return usersDb.doc(`/users/${email}`).set({ createdAt, firstName, lastName });
 };
 
 module.exports = { signUp, getUser, addNewUser };
