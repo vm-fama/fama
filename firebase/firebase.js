@@ -27,6 +27,9 @@ const getUser = ({ email }) => {
     .get()
     .then((docSnapshot) => {
       return docSnapshot;
+    })
+    .catch((err) => {
+      return err;
     });
 };
 

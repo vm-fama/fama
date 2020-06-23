@@ -26,9 +26,13 @@ export default class SignUp extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.state),
-    }).then((res) => {
-      console.log('back', res.code);
-    });
+    })
+      .then((res) => res.json())
+      .then((status) => {
+        if (status.error) {
+          alert(status.error);
+        }
+      });
   };
 
   render() {

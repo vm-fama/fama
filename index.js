@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const fb = require('./firebase/firebase');
 
 const app = express();
 const port = 5000;
@@ -19,23 +18,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
-
-// app.post('/signup', (req, res) => {
-//   fb.getUser(req.body).then((userDoc) => {
-//     if (userDoc.exists) {
-//       // send message that user with that email already exists
-//     } else {
-//       fb.signUp(req.body).then((userToken) => {
-//         fb.addNewUser({
-//           createdAt: new Date().toISOString(),
-//           ...req.body,
-//         }).then(() => {
-//           res.status(201).json({ added: 'User added to db' });
-//         });
-//       });
-//     }
-//   });
-// });
 
 app.listen(port, (err) => {
   if (err) throw err;
