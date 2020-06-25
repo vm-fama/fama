@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
           createdAt: new Date().toISOString(),
           ...req.body,
         }).then(() => {
-          res.status(201);
+          res.sendStatus(201);
         });
       });
     }
