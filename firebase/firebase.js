@@ -1,7 +1,7 @@
 const firebase = require('firebase');
 const admin = require('firebase-admin');
 
-let serviceAccount = require('./fama-a4e81-firebase-adminsdk-i56dz-0cd3c60853');
+let serviceAccount = require('./fama-a4e81-firebase-adminsdk-i56dz-0cd3c60853'); // gitignored
 
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
