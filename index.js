@@ -9,6 +9,8 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/signup', require('./routes/fbUserRoutes'));
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -17,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, err => {
+app.listen(port, (err) => {
   if (err) throw err;
   console.log('Server running on port ' + port);
 });
